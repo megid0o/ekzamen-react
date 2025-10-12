@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import EventCard from '../../components/EventCard/EventCard'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import Loading from '../../components/Loading/Loading'
@@ -9,6 +10,7 @@ const Events = () => {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -19,7 +21,7 @@ const Events = () => {
           {
             id: 1,
             title: 'Rock Concert 2024',
-            date: '2024-03-15',
+            date: '15 марта 2024, 19:00',
             location: 'Москва, Стадион Лужники',
             price: 2500,
             type: 'concert',
@@ -27,8 +29,8 @@ const Events = () => {
           },
           {
             id: 2,
-            title: 'Tech Conference',
-            date: '2024-04-20',
+            title: 'Tech Conference 2024',
+            date: '20 апреля 2024, 10:00',
             location: 'Санкт-Петербург, Экспофорум',
             price: 5000,
             type: 'conference',
@@ -36,8 +38,8 @@ const Events = () => {
           },
           {
             id: 3,
-            title: 'Book Fair',
-            date: '2024-05-10',
+            title: 'Международная книжная ярмарка',
+            date: '10 мая 2024, 11:00',
             location: 'Казань, Кремль',
             price: 500,
             type: 'fair',
@@ -65,8 +67,7 @@ const Events = () => {
   })
 
   const handleEventClick = (event) => {
-
-    console.log('Event clicked:', event)
+    navigate(`/event/${event.id}`)
   }
 
   if (loading) {
