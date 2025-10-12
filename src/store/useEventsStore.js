@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+// Имитация API вызовов
 const mockApi = {
   fetchEvents: () => {
     return new Promise((resolve) => {
@@ -9,7 +10,7 @@ const mockApi = {
           {
             id: 1,
             title: 'Rock Concert 2024',
-            date: '2024-03-15',
+            date: '2024-03-15T19:00',
             location: 'Москва, Стадион Лужники',
             price: 2500,
             type: 'concert',
@@ -23,7 +24,7 @@ const mockApi = {
           {
             id: 2,
             title: 'Tech Conference 2024',
-            date: '2024-04-20',
+            date: '2024-04-20T10:00',
             location: 'Санкт-Петербург, Экспофорум',
             price: 5000,
             type: 'conference',
@@ -37,7 +38,7 @@ const mockApi = {
           {
             id: 3,
             title: 'Международная книжная ярмарка',
-            date: '2024-05-10',
+            date: '2024-05-10T11:00',
             location: 'Казань, Кремль',
             price: 500,
             type: 'fair',
@@ -92,7 +93,7 @@ export const useEventsStore = create(
       setSearchTerm: (searchTerm) => set({ searchTerm }),
       setFilterType: (filterType) => set({ filterType }),
 
-      // Async
+      // Async Actions
       fetchEvents: async () => {
         set({ loading: true, error: null })
         try {
@@ -148,7 +149,8 @@ export const useEventsStore = create(
           throw error
         }
       },
-)
+
+      // Computed values (getters)
       getFilteredEvents: () => {
         const { events, searchTerm, filterType } = get()
         

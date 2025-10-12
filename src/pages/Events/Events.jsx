@@ -9,7 +9,6 @@ import './Events.css'
 const Events = () => {
   const navigate = useNavigate()
   
-  // Получаем состояние и действия из store
   const {
     events,
     loading,
@@ -22,7 +21,6 @@ const Events = () => {
     getFilteredEvents
   } = useEventsStore()
 
-  // Используем computed значение или вычисляем на клиенте
   const displayedEvents = filteredEvents || getFilteredEvents?.() || events
 
   useEffect(() => {
@@ -56,6 +54,7 @@ const Events = () => {
               key={event.id}
               event={event}
               onEventClick={handleEventClick}
+              showActions={true} // Включаем кнопки редактирования/удаления
             />
           ))}
         </div>
