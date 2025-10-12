@@ -1,9 +1,13 @@
 import { useState } from 'react'
+import { useCartStore } from '../../store/useCartStore'
 import EventActions from '../EventActions/EventActions'
 import './EventCard.css'
 
 const EventCard = ({ event, onEventClick, showActions = false }) => {
   const [imageError, setImageError] = useState(false)
+  const { addToCart, isInCart } = useCartStore()
+
+  const inCart = isInCart(event.id)
 
   const handleImageError = () => {
     setImageError(true)
@@ -13,6 +17,11 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
     if (onEventClick) {
       onEventClick(event)
     }
+  }
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation() // Предотвращаем клик по карточке
+    addToCart(event, 1)
   }
 
   const getDefaultImage = (type) => {
@@ -36,6 +45,13 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
           alt={event.title}
           onError={handleImageError}
         />
+        <button 
+          className="quick-add-cart"
+          onClick={handleAddToCart}
+          title="Добавить в корзину"
+        >
+          {inCart ? '✓ В корзине' : '+ 🛒'}
+        </button>
       </div>
       
       <div className="event-content" onClick={handleCardClick}>

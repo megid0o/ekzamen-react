@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Loading from '../../components/Loading/Loading'
 import { useEventsStore } from '../../store/useEventsStore'
+import { useCartStore } from '../../store/useCartStore'
 import './EventDetails.css'
 
 const EventDetails = () => {
@@ -10,13 +11,23 @@ const EventDetails = () => {
   const [ticketCount, setTicketCount] = useState(1)
   
   const { getEventById, loading } = useEventsStore()
+  const { addToCart, isInCart, getItemQuantity } = useCartStore()
   
   const event = getEventById(Number(id))
+  const inCart = isInCart(Number(id))
+  const cartQuantity = getItemQuantity(Number(id))
 
   const handleBuyTickets = () => {
     if (event) {
       alert(`Поздравляем! Вы приобрели ${ticketCount} билет(а) на "${event.title}"`)
       // Здесь будет логика покупки билетов
+    }
+  }
+
+  const handleAddToCart = () => {
+    if (event) {
+      addToCart(event, ticketCount)
+      alert(`${ticketCount} билет(а) на "${event.title}" добавлены в корзину!`)
     }
   }
 
@@ -82,6 +93,12 @@ const EventDetails = () => {
                 <span className="meta-label">🎫 Доступно билетов</span>
                 <span className="meta-value">{event.availableTickets}</span>
               </div>
+              {inCart && (
+                <div className="meta-item">
+                  <span className="meta-label">🛒 В корзине</span>
+                  <span className="meta-value">{cartQuantity} билет(а)</span>
+                </div>
+              )}
             </div>
 
             <div className="event-description">
@@ -121,13 +138,22 @@ const EventDetails = () => {
                 <span className="total-amount">{totalPrice} ₽</span>
               </div>
 
-              <button 
-                onClick={handleBuyTickets}
-                className="buy-button"
-                disabled={event.availableTickets === 0}
-              >
-                {event.availableTickets > 0 ? 'Купить билеты' : 'Билеты распроданы'}
-              </button>
+              <div className="purchase-actions">
+                <button 
+                  onClick={handleAddToCart}
+                  className="add-to-cart-button"
+                  disabled={event.availableTickets === 0}
+                >
+                  {inCart ? 'Добавить еще' : 'В корзину'}
+                </button>
+                <button 
+                  onClick={handleBuyTickets}
+                  className="buy-button"
+                  disabled={event.availableTickets === 0}
+                >
+                  {event.availableTickets > 0 ? 'Купить сейчас' : 'Билеты распроданы'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
