@@ -1,0 +1,50 @@
+.events-page {
+  padding: 2rem 0;
+  min-height: calc(100vh - 140px);
+}
+
+.events-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 2.5rem;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.no-events {
+  text-align: center;
+  padding: 3rem;
+  color: #7f8c8d;
+}
+
+.no-events p {
+  font-size: 1.2rem;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .events-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .events-page {
+    padding: 1rem 0;
+  }
+  
+  .events-page h1 {
+    font-size: 2rem;
+  }
+  
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
