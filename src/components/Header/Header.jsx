@@ -16,6 +16,11 @@ const Header = () => {
               <li><Link to="/">Главная</Link></li>
               <li><Link to="/events">Мероприятия</Link></li>
               <li><Link to="/about">О нас</Link></li>
+              <li>
+                <Link to="/add-event" className="add-event-link">
+                  + Добавить мероприятие
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
