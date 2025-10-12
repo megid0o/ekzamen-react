@@ -1,14 +1,11 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEventsStore } from '../../store/useEventsStore'
 import EventCard from '../../components/EventCard/EventCard'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import Loading from '../../components/Loading/Loading'
-import { useEventsStore } from '../../store/useEventsStore'
 import './Events.css'
 
 const Events = () => {
-  const navigate = useNavigate()
-  
   const {
     events,
     loading,
@@ -18,29 +15,37 @@ const Events = () => {
     fetchEvents,
     setSearchTerm,
     setFilterType,
-    getFilteredEvents
+    getFilteredEvents,
+    resetFilters
   } = useEventsStore()
 
-  const displayedEvents = filteredEvents || getFilteredEvents?.() || events
-
+  // useEffect для загрузки данных
   useEffect(() => {
     if (events.length === 0) {
       fetchEvents()
     }
   }, [events.length, fetchEvents])
 
-  const handleEventClick = (event) => {
-    navigate(`/event/${event.id}`)
-  }
+  const displayedEvents = filteredEvents || getFilteredEvents?.() || events
 
   if (loading && events.length === 0) {
-    return <Loading />
+    return (
+      <div className="events-page">
+        <div className="container">
+          <Loading />
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="events-page">
       <div className="container">
-        <h1>Все мероприятия</h1>
+        <div className="page-header">
+          <h1>Все мероприятия</h1>
+          <p>Найдите идеальное мероприятие для себя</p>
+        </div>
+
         <SearchBar
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
@@ -48,26 +53,36 @@ const Events = () => {
           onFilterChange={setFilterType}
         />
         
+        <div className="events-stats">
+          <span>Найдено мероприятий: {displayedEvents.length}</span>
+          {(searchTerm || filterType !== 'all') && (
+            <button 
+              onClick={resetFilters}
+              className="btn btn-secondary btn-sm"
+            >
+              Сбросить фильтры
+            </button>
+          )}
+        </div>
+        
         <div className="events-grid">
           {displayedEvents.map(event => (
             <EventCard
               key={event.id}
               event={event}
-              onEventClick={handleEventClick}
-              showActions={true} // Включаем кнопки редактирования/удаления
+              showActions={true}
             />
           ))}
         </div>
         
         {displayedEvents.length === 0 && !loading && (
           <div className="no-events">
-            <p>Мероприятия не найдены</p>
+            <div className="no-events-icon">🔍</div>
+            <h3>Мероприятия не найдены</h3>
+            <p>Попробуйте изменить параметры поиска или сбросить фильтры</p>
             <button 
-              onClick={() => {
-                setSearchTerm('')
-                setFilterType('all')
-              }}
-              className="reset-filters-button"
+              onClick={resetFilters}
+              className="btn btn-primary"
             >
               Сбросить фильтры
             </button>

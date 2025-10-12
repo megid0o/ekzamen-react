@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import Loading from '../../components/Loading/Loading'
 import { useEventsStore } from '../../store/useEventsStore'
 import { useCartStore } from '../../store/useCartStore'
+import Loading from '../../components/Loading/Loading'
 import './EventDetails.css'
 
 const EventDetails = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [ticketCount, setTicketCount] = useState(1)
+  const [imageError, setImageError] = useState(false)
   
   const { getEventById, loading } = useEventsStore()
   const { addToCart, isInCart, getItemQuantity } = useCartStore()
@@ -17,10 +18,15 @@ const EventDetails = () => {
   const inCart = isInCart(Number(id))
   const cartQuantity = getItemQuantity(Number(id))
 
+  // useEffect для обработки ошибок изображений
+  useEffect(() => {
+    setImageError(false)
+  }, [event])
+
   const handleBuyTickets = () => {
     if (event) {
-      alert(`Поздравляем! Вы приобрели ${ticketCount} билет(а) на "${event.title}"`)
-      // Здесь будет логика покупки билетов
+      const totalPrice = event.price * ticketCount
+      alert(`Вы приобрели ${ticketCount} билет на "${event.title}" за ${totalPrice} тг`)
     }
   }
 
@@ -35,6 +41,47 @@ const EventDetails = () => {
     navigate('/events')
   }
 
+  const handleImageError = () => {
+    setImageError(true)
+  }
+
+  const getDefaultImage = (type) => {
+    const colors = {
+      concert: '2D5BFF',
+      conference: '00C2FF',
+      fair: 'FF6B35',
+      exhibition: '8B5CF6',
+      sport: '10B981',
+      theater: 'F59E0B'
+    }
+    const color = colors[type] || '6B7280'
+    return `https://via.placeholder.com/600x400/${color}/FFFFFF?text=${encodeURIComponent(event?.title || 'Мероприятие')}`
+  }
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('ru-RU', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
+
+  const getTypeLabel = (type) => {
+    const types = {
+      concert: 'Концерт',
+      conference: 'Конференция',
+      fair: 'Ярмарка',
+      exhibition: 'Выставка',
+      sport: 'Спорт',
+      theater: 'Театр'
+    }
+    return types[type] || type
+  }
+
   if (loading && !event) {
     return <Loading />
   }
@@ -45,7 +92,8 @@ const EventDetails = () => {
         <div className="container">
           <div className="event-not-found">
             <h2>Мероприятие не найдено</h2>
-            <button onClick={handleBack} className="back-button">
+            <p>Запрошенное мероприятие не существует или было удалено</p>
+            <button onClick={handleBack} className="btn btn-primary">
               Вернуться к мероприятиям
             </button>
           </div>
@@ -65,38 +113,59 @@ const EventDetails = () => {
         
         <div className="event-details-content">
           <div className="event-image-section">
-            <img src={event.image} alt={event.title} className="event-detail-image" />
+            <img 
+              src={imageError ? getDefaultImage(event.type) : event.image} 
+              alt={event.title}
+              className="event-detail-image"
+              onError={handleImageError}
+            />
+            <div className="image-overlay">
+              <span className="event-type-badge">{getTypeLabel(event.type)}</span>
+            </div>
           </div>
           
           <div className="event-info-section">
             <div className="event-header">
-              <span className="event-type-badge">{event.type}</span>
               <h1 className="event-title">{event.title}</h1>
               <p className="event-organizer">Организатор: {event.organizer}</p>
             </div>
 
-            <div className="event-meta">
-              <div className="meta-item">
-                <span className="meta-label">📅 Дата и время</span>
-                <span className="meta-value">{event.date}</span>
+            <div className="event-meta-grid">
+              <div className="meta-card">
+                <div className="meta-content">
+                  <span className="meta-label">Дата и время</span>
+                  <span className="meta-value">{formatDate(event.date)}</span>
+                </div>
               </div>
-              <div className="meta-item">
-                <span className="meta-label">📍 Место проведения</span>
-                <span className="meta-value">{event.location}</span>
-                <span className="meta-address">{event.address}</span>
+
+              <div className="meta-card">
+                <div className="meta-content">
+                  <span className="meta-label">Место проведения</span>
+                  <span className="meta-value">{event.location}</span>
+                  <span className="meta-address">{event.address}</span>
+                </div>
               </div>
-              <div className="meta-item">
-                <span className="meta-label">⏱️ Продолжительность</span>
-                <span className="meta-value">{event.duration}</span>
+
+              <div className="meta-card">
+                <div className="meta-content">
+                  <span className="meta-label">Продолжительность</span>
+                  <span className="meta-value">{event.duration}</span>
+                </div>
               </div>
-              <div className="meta-item">
-                <span className="meta-label">🎫 Доступно билетов</span>
-                <span className="meta-value">{event.availableTickets}</span>
+
+              <div className="meta-card">
+                <div className="meta-content">
+                  <span className="meta-label">Доступно билетов</span>
+                  <span className="meta-value">{event.availableTickets}</span>
+                </div>
               </div>
+
               {inCart && (
-                <div className="meta-item">
-                  <span className="meta-label">🛒 В корзине</span>
-                  <span className="meta-value">{cartQuantity} билет(а)</span>
+                <div className="meta-card">
+                  <div className="meta-content">
+                    <span className="meta-label">В корзине</span>
+                    <span className="meta-value">{cartQuantity} билет(а)</span>
+                  </div>
                 </div>
               )}
             </div>
@@ -106,10 +175,10 @@ const EventDetails = () => {
               <p>{event.description}</p>
             </div>
 
-            <div className="ticket-purchase">
+            <div className="ticket-purchase card">
               <div className="price-section">
                 <span className="price-label">Цена за билет:</span>
-                <span className="price-amount">{event.price} ₽</span>
+                <span className="price-amount">{event.price} ₸</span>
               </div>
               
               <div className="ticket-counter">
@@ -135,20 +204,20 @@ const EventDetails = () => {
 
               <div className="total-section">
                 <span className="total-label">Итого:</span>
-                <span className="total-amount">{totalPrice} ₽</span>
+                <span className="total-amount">{totalPrice} ₸</span>
               </div>
 
               <div className="purchase-actions">
                 <button 
                   onClick={handleAddToCart}
-                  className="add-to-cart-button"
+                  className="btn btn-secondary"
                   disabled={event.availableTickets === 0}
                 >
                   {inCart ? 'Добавить еще' : 'В корзину'}
                 </button>
                 <button 
                   onClick={handleBuyTickets}
-                  className="buy-button"
+                  className="btn btn-primary"
                   disabled={event.availableTickets === 0}
                 >
                   {event.availableTickets > 0 ? 'Купить сейчас' : 'Билеты распроданы'}

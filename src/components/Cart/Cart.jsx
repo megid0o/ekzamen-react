@@ -14,7 +14,9 @@ const Cart = ({ isOpen, onClose }) => {
   const handleCheckout = () => {
     if (cartItems.length === 0) return
     
-    alert(`Поздравляем с покупкой! Общая сумма: ${getTotalPrice()} ₽`)
+    const total = getTotalPrice()
+    const itemsCount = getTotalItems()
+    alert(`🎉 Поздравляем с покупкой! Вы приобрели ${itemsCount} билет(ов) на общую сумму ${total} ₸`)
     clearCart()
     onClose()
   }
@@ -32,6 +34,7 @@ const Cart = ({ isOpen, onClose }) => {
         <div className="cart-content">
           {cartItems.length === 0 ? (
             <div className="empty-cart">
+              <div className="empty-cart-icon">🛒</div>
               <p>Корзина пуста</p>
               <span>Добавьте билеты на мероприятия</span>
             </div>
@@ -39,11 +42,15 @@ const Cart = ({ isOpen, onClose }) => {
             <>
               <div className="cart-items">
                 {cartItems.map((item) => (
-                  <div key={item.event.id} className="cart-item">
-                    <div className="item-info">
-                      <h4>{item.event.title}</h4>
-                      <p className="item-price">{item.event.price} ₽ × {item.quantity}</p>
-                      <p className="item-total">{item.event.price * item.quantity} ₽</p>
+                  <div key={item.event.id} className="cart-item card">
+                    <div className="item-image">
+                      <img src={item.event.image} alt={item.event.title} />
+                    </div>
+                    <div className="item-details">
+                      <h4 className="item-title">{item.event.title}</h4>
+                      <p className="item-organizer">{item.event.organizer}</p>
+                      <div className="item-price">{item.event.price} ₸ × {item.quantity}</div>
+                      <div className="item-total">{item.event.price * item.quantity} ₸</div>
                     </div>
                     
                     <div className="item-controls">
@@ -65,7 +72,7 @@ const Cart = ({ isOpen, onClose }) => {
                       <button 
                         onClick={() => removeFromCart(item.event.id)}
                         className="remove-btn"
-                        title="Удалить"
+                        title="Удалить из корзины"
                       >
                         🗑️
                       </button>
@@ -75,25 +82,27 @@ const Cart = ({ isOpen, onClose }) => {
               </div>
               
               <div className="cart-footer">
-                <div className="cart-total">
-                  <span>Итого:</span>
-                  <span className="total-price">{getTotalPrice()} ₽</span>
-                </div>
-                <div className="cart-actions">
-                  <button 
-                    onClick={clearCart}
-                    className="clear-cart-btn"
-                    disabled={cartItems.length === 0}
-                  >
-                    Очистить корзину
-                  </button>
-                  <button 
-                    onClick={handleCheckout}
-                    className="checkout-btn"
-                    disabled={cartItems.length === 0}
-                  >
-                    Оформить заказ ({getTotalItems()})
-                  </button>
+                <div className="cart-summary">
+                  <div className="cart-total">
+                    <span>Итого:</span>
+                    <span className="total-price">{getTotalPrice()} ₸</span>
+                  </div>
+                  <div className="cart-actions">
+                    <button 
+                      onClick={clearCart}
+                      className="btn btn-secondary"
+                      disabled={cartItems.length === 0}
+                    >
+                      Очистить корзину
+                    </button>
+                    <button 
+                      onClick={handleCheckout}
+                      className="btn btn-accent"
+                      disabled={cartItems.length === 0}
+                    >
+                      Оформить заказ ({getTotalItems()})
+                    </button>
+                  </div>
                 </div>
               </div>
             </>

@@ -1,9 +1,30 @@
-.add-event-page {
+.edit-event-page {
   padding: 100px 0 4rem;
   min-height: 100vh;
   background: var(--gray-light);
 }
 
+.event-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--light-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.event-not-found h2 {
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.event-not-found p {
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Остальные стили такие же как в AddEvent.css */
 .event-form {
   padding: 3rem;
   background: var(--light-color);
@@ -93,7 +114,7 @@
 }
 
 @media (max-width: 390px) {
-  .add-event-page {
+  .edit-event-page {
     padding: 80px 0 2rem;
   }
   

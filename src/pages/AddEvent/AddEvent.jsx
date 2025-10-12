@@ -69,15 +69,12 @@ const AddEvent = () => {
         ...formData,
         price: Number(formData.price),
         availableTickets: Number(formData.availableTickets),
-        id: Date.now() // Временный ID, в реальном приложении генерируется на сервере
+        id: Date.now()
       }
 
       await addEvent(eventData)
       
-      // Показываем уведомление об успехе
-      alert('Мероприятие успешно добавлено!')
-      
-      // Перенаправляем на страницу мероприятий
+      alert('Мероприятие добавлено.')
       navigate('/events')
     } catch (error) {
       alert('Ошибка при добавлении мероприятия: ' + error.message)
@@ -91,47 +88,54 @@ const AddEvent = () => {
   return (
     <div className="add-event-page">
       <div className="container">
-        <div className="add-event-header">
-          <h1>Добавить новое мероприятие</h1>
+        <div className="page-header">
+          <h1>Добавить мероприятие</h1>
           <p>Заполните форму чтобы добавить мероприятие в каталог</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="event-form">
+        <form onSubmit={handleSubmit} className="event-form card">
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="title">Название мероприятия *</label>
+              <label htmlFor="title" className="form-label">
+                Название мероприятия *
+              </label>
               <input
                 type="text"
                 id="title"
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className={errors.title ? 'error' : ''}
+                className={`form-input ${errors.title ? 'error' : ''}`}
                 placeholder="Введите название мероприятия"
               />
               {errors.title && <span className="error-message">{errors.title}</span>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="date">Дата и время *</label>
+              <label htmlFor="date" className="form-label">
+                Дата и время *
+              </label>
               <input
                 type="datetime-local"
                 id="date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className={errors.date ? 'error' : ''}
+                className={`form-input ${errors.date ? 'error' : ''}`}
               />
               {errors.date && <span className="error-message">{errors.date}</span>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="type">Тип мероприятия *</label>
+              <label htmlFor="type" className="form-label">
+                Тип мероприятия *
+              </label>
               <select
                 id="type"
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
+                className="form-input"
               >
                 <option value="concert">Концерт</option>
                 <option value="conference">Конференция</option>
@@ -143,56 +147,64 @@ const AddEvent = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="organizer">Организатор *</label>
+              <label htmlFor="organizer" className="form-label">
+                Организатор *
+              </label>
               <input
                 type="text"
                 id="organizer"
                 name="organizer"
                 value={formData.organizer}
                 onChange={handleChange}
-                className={errors.organizer ? 'error' : ''}
+                className={`form-input ${errors.organizer ? 'error' : ''}`}
                 placeholder="Введите название организатора"
               />
               {errors.organizer && <span className="error-message">{errors.organizer}</span>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="location">Место проведения *</label>
+              <label htmlFor="location" className="form-label">
+                Место проведения *
+              </label>
               <input
                 type="text"
                 id="location"
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className={errors.location ? 'error' : ''}
-                placeholder="Например: Москва, Кремль"
+                className={`form-input ${errors.location ? 'error' : ''}`}
+                placeholder="Например: Алматы, Дворец Республики"
               />
               {errors.location && <span className="error-message">{errors.location}</span>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="address">Адрес *</label>
+              <label htmlFor="address" className="form-label">
+                Адрес *
+              </label>
               <input
                 type="text"
                 id="address"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                className={errors.address ? 'error' : ''}
+                className={`form-input ${errors.address ? 'error' : ''}`}
                 placeholder="Введите полный адрес"
               />
               {errors.address && <span className="error-message">{errors.address}</span>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="price">Цена билета (₽) *</label>
+              <label htmlFor="price" className="form-label">
+                Цена билета (₸) *
+              </label>
               <input
                 type="number"
                 id="price"
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                className={errors.price ? 'error' : ''}
+                className={`form-input ${errors.price ? 'error' : ''}`}
                 placeholder="Введите цену"
                 min="0"
               />
@@ -200,14 +212,16 @@ const AddEvent = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="availableTickets">Количество билетов *</label>
+              <label htmlFor="availableTickets" className="form-label">
+                Количество билетов *
+              </label>
               <input
                 type="number"
                 id="availableTickets"
                 name="availableTickets"
                 value={formData.availableTickets}
                 onChange={handleChange}
-                className={errors.availableTickets ? 'error' : ''}
+                className={`form-input ${errors.availableTickets ? 'error' : ''}`}
                 placeholder="Введите количество"
                 min="1"
               />
@@ -215,43 +229,49 @@ const AddEvent = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="duration">Продолжительность *</label>
+              <label htmlFor="duration" className="form-label">
+                Продолжительность *
+              </label>
               <input
                 type="text"
                 id="duration"
                 name="duration"
                 value={formData.duration}
                 onChange={handleChange}
-                className={errors.duration ? 'error' : ''}
+                className={`form-input ${errors.duration ? 'error' : ''}`}
                 placeholder="Например: 3 часа"
               />
               {errors.duration && <span className="error-message">{errors.duration}</span>}
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="image">Ссылка на изображение *</label>
+              <label htmlFor="image" className="form-label">
+                Ссылка на изображение *
+              </label>
               <input
                 type="url"
                 id="image"
                 name="image"
                 value={formData.image}
                 onChange={handleChange}
-                className={errors.image ? 'error' : ''}
+                className={`form-input ${errors.image ? 'error' : ''}`}
                 placeholder="https://example.com/image.jpg"
               />
               {errors.image && <span className="error-message">{errors.image}</span>}
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="description">Описание мероприятия *</label>
+              <label htmlFor="description" className="form-label">
+                Описание мероприятия *
+              </label>
               <textarea
                 id="description"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                className={errors.description ? 'error' : ''}
+                className={`form-textarea ${errors.description ? 'error' : ''}`}
                 placeholder="Подробное описание мероприятия..."
-                rows="5"
+                rows="6"
               />
               {errors.description && <span className="error-message">{errors.description}</span>}
             </div>
@@ -261,14 +281,14 @@ const AddEvent = () => {
             <button
               type="button"
               onClick={handleCancel}
-              className="cancel-button"
+              className="btn btn-secondary"
               disabled={loading}
             >
               Отмена
             </button>
             <button
               type="submit"
-              className="submit-button"
+              className="btn btn-primary"
               disabled={loading}
             >
               {loading ? 'Добавление...' : 'Добавить мероприятие'}

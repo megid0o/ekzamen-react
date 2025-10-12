@@ -4,16 +4,15 @@ import { persist } from 'zustand/middleware'
 export const useCartStore = create(
   persist(
     (set, get) => ({
-      // State
+      // ✅ State
       cartItems: [],
       
-      // Actions
+      // ✅ Actions
       addToCart: (event, quantity = 1) => {
         set((state) => {
           const existingItem = state.cartItems.find(item => item.event.id === event.id)
           
           if (existingItem) {
-            // Если мероприятие уже в корзине, увеличиваем количество
             return {
               cartItems: state.cartItems.map(item =>
                 item.event.id === event.id
@@ -22,7 +21,6 @@ export const useCartStore = create(
               )
             }
           } else {
-            // Добавляем новое мероприятие в корзину
             return {
               cartItems: [...state.cartItems, { event, quantity }]
             }
@@ -55,7 +53,7 @@ export const useCartStore = create(
         set({ cartItems: [] })
       },
       
-      // Computed values
+      // ✅ Computed values
       getTotalPrice: () => {
         const { cartItems } = get()
         return cartItems.reduce((total, item) => {

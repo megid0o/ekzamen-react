@@ -20,7 +20,6 @@ const EventActions = ({ event }) => {
     setIsDeleting(true)
     try {
       await deleteEvent(event.id)
-      // Можно показать уведомление об успешном удалении
     } catch (error) {
       alert('Ошибка при удалении мероприятия: ' + error.message)
     } finally {
@@ -32,18 +31,18 @@ const EventActions = ({ event }) => {
     <div className="event-actions">
       <button 
         onClick={handleEdit}
-        className="edit-button"
+        className="action-btn edit-btn"
         title="Редактировать мероприятие"
       >
-        ✏️
+        Редактировать
       </button>
       <button 
         onClick={handleDelete}
-        className="delete-button"
+        className="action-btn delete-btn"
         disabled={isDeleting}
         title="Удалить мероприятие"
       >
-        {isDeleting ? '⏳' : '🗑️'}
+        {isDeleting ? 'Удаление...' : 'Удалить'}
       </button>
     </div>
   )

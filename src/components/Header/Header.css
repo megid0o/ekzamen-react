@@ -1,119 +1,196 @@
 .header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 1rem 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow);
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 0;
 }
 
-.logo h1 {
-  color: #3498db;
-  font-size: 1.8rem;
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--dark-color);
+}
+
+.logo-text {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .nav-list {
   display: flex;
   list-style: none;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-list a {
-  color: white;
+.nav-link {
   text-decoration: none;
-  transition: color 0.3s ease;
+  color: var(--text-dark);
+  font-weight: 500;
   padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  position: relative;
 }
 
-.nav-list a:hover {
-  color: #3498db;
-  background-color: rgba(255, 255, 255, 0.1);
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-color);
 }
 
-.add-event-link {
-  background-color: #e74c3c;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
 }
 
-.add-event-link:hover {
-  background-color: #c0392b;
+.nav-btn {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .cart-button {
-  background: #27ae60;
-  color: white;
+  background: none;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   position: relative;
-  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
 }
 
 .cart-button:hover {
-  background: #219a52;
+  background: var(--gray-light);
+}
+
+.cart-icon {
+  font-size: 1.3rem;
 }
 
 .cart-badge {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  background: #e74c3c;
+  top: -5px;
+  right: -5px;
+  background: var(--accent-color);
   color: white;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 0.8rem;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
 }
 
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  gap: 4px;
+}
+
+.mobile-menu-toggle span {
+  width: 20px;
+  height: 2px;
+  background: var(--dark-color);
+  transition: var(--transition);
+}
+
 /* Адаптивность */
 @media (max-width: 1024px) {
   .nav-list {
-    gap: 1rem;
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
-  .header-content {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--light-color);
+    box-shadow: var(--shadow);
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+  }
+
+  .nav-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-list {
     flex-direction: column;
+    padding: 2rem;
     gap: 1rem;
   }
-  
-  .nav-list {
-    flex-wrap: wrap;
+
+  .nav-link {
+    display: block;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .nav-btn {
+    width: 100%;
     justify-content: center;
   }
 }
 
 @media (max-width: 390px) {
-  .nav-list {
-    gap: 0.5rem;
+  .logo-text {
+    font-size: 1.3rem;
   }
   
-  .nav-list a,
-  .cart-button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
-  
-  .logo h1 {
-    font-size: 1.5rem;
+  .header-content {
+    padding: 0.8rem 0;
   }
 }
