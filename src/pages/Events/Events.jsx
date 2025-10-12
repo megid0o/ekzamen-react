@@ -1,76 +1,41 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import EventCard from '../../components/EventCard/EventCard'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import Loading from '../../components/Loading/Loading'
+import { useEventsStore } from '../../store/useEventsStore'
 import './Events.css'
 
 const Events = () => {
-  const [events, setEvents] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filterType, setFilterType] = useState('all')
   const navigate = useNavigate()
+  
+  // Получаем состояние и действия из store
+  const {
+    events,
+    loading,
+    searchTerm,
+    filterType,
+    filteredEvents,
+    fetchEvents,
+    setSearchTerm,
+    setFilterType,
+    getFilteredEvents
+  } = useEventsStore()
+
+  // Используем computed значение или вычисляем на клиенте
+  const displayedEvents = filteredEvents || getFilteredEvents?.() || events
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      setLoading(true)
-      try {
-        // Временные данные
-        const mockEvents = [
-          {
-            id: 1,
-            title: 'Rock Concert 2024',
-            date: '15 марта 2024, 19:00',
-            location: 'Москва, Стадион Лужники',
-            price: 2500,
-            type: 'concert',
-            image: 'https://via.placeholder.com/300x200/3498db/ffffff?text=Rock+Concert'
-          },
-          {
-            id: 2,
-            title: 'Tech Conference 2024',
-            date: '20 апреля 2024, 10:00',
-            location: 'Санкт-Петербург, Экспофорум',
-            price: 5000,
-            type: 'conference',
-            image: 'https://via.placeholder.com/300x200/e74c3c/ffffff?text=Tech+Conference'
-          },
-          {
-            id: 3,
-            title: 'Международная книжная ярмарка',
-            date: '10 мая 2024, 11:00',
-            location: 'Казань, Кремль',
-            price: 500,
-            type: 'fair',
-            image: 'https://via.placeholder.com/300x200/2ecc71/ffffff?text=Book+Fair'
-          }
-        ]
-        setTimeout(() => {
-          setEvents(mockEvents)
-          setLoading(false)
-        }, 1000)
-      } catch (error) {
-        console.error('Error fetching events:', error)
-        setLoading(false)
-      }
+    if (events.length === 0) {
+      fetchEvents()
     }
-
-    fetchEvents()
-  }, [])
-
-  const filteredEvents = events.filter(event => {
-    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         event.location.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesFilter = filterType === 'all' || event.type === filterType
-    return matchesSearch && matchesFilter
-  })
+  }, [events.length, fetchEvents])
 
   const handleEventClick = (event) => {
     navigate(`/event/${event.id}`)
   }
 
-  if (loading) {
+  if (loading && events.length === 0) {
     return <Loading />
   }
 
@@ -86,7 +51,7 @@ const Events = () => {
         />
         
         <div className="events-grid">
-          {filteredEvents.map(event => (
+          {displayedEvents.map(event => (
             <EventCard
               key={event.id}
               event={event}
@@ -95,9 +60,18 @@ const Events = () => {
           ))}
         </div>
         
-        {filteredEvents.length === 0 && (
+        {displayedEvents.length === 0 && !loading && (
           <div className="no-events">
             <p>Мероприятия не найдены</p>
+            <button 
+              onClick={() => {
+                setSearchTerm('')
+                setFilterType('all')
+              }}
+              className="reset-filters-button"
+            >
+              Сбросить фильтры
+            </button>
           </div>
         )}
       </div>
