@@ -13,7 +13,6 @@ const Header = () => {
 
   const totalItems = getTotalItems()
 
-  // useEffect для отслеживания скролла
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -34,7 +33,7 @@ const Header = () => {
           <div className="header-content">
             <div className="logo">
               <Link to="/">
-                <span className="logo-text">Events</span>
+                <span className="logo-text">Tikkets</span>
               </Link>
             </div>
 
@@ -67,24 +66,21 @@ const Header = () => {
                     О нас
                   </Link>
                 </li>
-                <li>
-                  <Link 
-                    to="/add-event" 
-                    className="btn btn-secondary nav-btn"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    + Добавить
-                  </Link>
-                </li>
               </ul>
             </nav>
 
             <div className="header-actions">
+              <Link 
+                to="/add-event" 
+                className="btn btn-secondary add-event-btn"
+              >
+                Добавить мероприятие
+              </Link>
               <button 
                 className="cart-button"
                 onClick={() => setIsCartOpen(true)}
               >
-                <span className="cart-icon">🛒</span>
+                <span className="cart-text">Корзина</span>
                 {totalItems > 0 && (
                   <span className="cart-badge">{totalItems}</span>
                 )}

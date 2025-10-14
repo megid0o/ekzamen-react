@@ -4,10 +4,10 @@ import { persist } from 'zustand/middleware'
 export const useCartStore = create(
   persist(
     (set, get) => ({
-      // ✅ State
+      // State
       cartItems: [],
       
-      // ✅ Actions
+      // Actions
       addToCart: (event, quantity = 1) => {
         set((state) => {
           const existingItem = state.cartItems.find(item => item.event.id === event.id)
@@ -53,7 +53,7 @@ export const useCartStore = create(
         set({ cartItems: [] })
       },
       
-      // ✅ Computed values
+      // Computed values
       getTotalPrice: () => {
         const { cartItems } = get()
         return cartItems.reduce((total, item) => {

@@ -2,8 +2,8 @@
   display: flex;
   gap: 0.5rem;
   padding: 1rem;
-  background: var(--gray-light);
-  border-top: 1px solid var(--gray-medium);
+  background: var(--card-hover);
+  border-top: 1px solid var(--border-color);
 }
 
 .action-btn {
@@ -23,21 +23,21 @@
 
 .edit-btn {
   background: var(--primary-color);
-  color: var(--light-color);
+  color: var(--text-primary);
 }
 
 .edit-btn:hover {
-  background: #1a4aff;
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
 .delete-btn {
   background: var(--accent-color);
-  color: var(--light-color);
+  color: var(--text-primary);
 }
 
 .delete-btn:hover:not(:disabled) {
-  background: #e55a2b;
+  background: #B45309;
   transform: translateY(-1px);
 }
 

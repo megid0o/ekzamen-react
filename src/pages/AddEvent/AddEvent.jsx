@@ -30,7 +30,6 @@ const AddEvent = () => {
       [name]: value
     }))
     
-    // Очищаем ошибку при изменении поля
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -74,7 +73,7 @@ const AddEvent = () => {
 
       await addEvent(eventData)
       
-      alert('Мероприятие добавлено.')
+      alert('Мероприятие успешно добавлено!')
       navigate('/events')
     } catch (error) {
       alert('Ошибка при добавлении мероприятия: ' + error.message)

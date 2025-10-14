@@ -18,7 +18,6 @@ const EventDetails = () => {
   const inCart = isInCart(Number(id))
   const cartQuantity = getItemQuantity(Number(id))
 
-  // useEffect для обработки ошибок изображений
   useEffect(() => {
     setImageError(false)
   }, [event])
@@ -26,7 +25,7 @@ const EventDetails = () => {
   const handleBuyTickets = () => {
     if (event) {
       const totalPrice = event.price * ticketCount
-      alert(`Вы приобрели ${ticketCount} билет на "${event.title}" за ${totalPrice} тг`)
+      alert(`Поздравляем! Вы приобрели ${ticketCount} билет(а) на "${event.title}" за ${totalPrice} ₸`)
     }
   }
 
@@ -47,12 +46,12 @@ const EventDetails = () => {
 
   const getDefaultImage = (type) => {
     const colors = {
-      concert: '2D5BFF',
-      conference: '00C2FF',
-      fair: 'FF6B35',
+      concert: '6366F1',
+      conference: '10B981',
+      fair: 'F59E0B',
       exhibition: '8B5CF6',
-      sport: '10B981',
-      theater: 'F59E0B'
+      sport: 'EF4444',
+      theater: '06B6D4'
     }
     const color = colors[type] || '6B7280'
     return `https://via.placeholder.com/600x400/${color}/FFFFFF?text=${encodeURIComponent(event?.title || 'Мероприятие')}`
@@ -108,7 +107,7 @@ const EventDetails = () => {
     <div className="event-details">
       <div className="container">
         <button onClick={handleBack} className="back-button">
-          ← Назад к мероприятиям
+          Назад к мероприятиям
         </button>
         
         <div className="event-details-content">

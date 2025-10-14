@@ -30,12 +30,12 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
 
   const getDefaultImage = (type) => {
     const colors = {
-      concert: '2D5BFF',
-      conference: '00C2FF',
-      fair: 'FF6B35',
+      concert: '6366F1',
+      conference: '10B981',
+      fair: 'F59E0B',
       exhibition: '8B5CF6',
-      sport: '10B981',
-      theater: 'F59E0B'
+      sport: 'EF4444',
+      theater: '06B6D4'
     }
     const color = colors[type] || '6B7280'
     return `https://via.placeholder.com/400x250/${color}/FFFFFF?text=${encodeURIComponent(event.title)}`
@@ -76,7 +76,7 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
             onClick={handleAddToCart}
             title="Добавить в корзину"
           >
-            {inCart ? '✓ В корзине' : '+ 🛒'}
+            {inCart ? 'В корзине' : 'В корзину'}
           </button>
           <span className="event-type-badge">{getTypeLabel(event.type)}</span>
         </div>
@@ -90,11 +90,9 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
 
         <div className="event-meta">
           <div className="meta-item">
-            <span className="meta-icon">📅</span>
             <span className="meta-text">{formatDate(event.date)}</span>
           </div>
           <div className="meta-item">
-            <span className="meta-icon">📍</span>
             <span className="meta-text">{event.location}</span>
           </div>
         </div>

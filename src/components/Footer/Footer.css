@@ -1,35 +1,37 @@
 .footer {
-  background: var(--dark-color);
-  color: var(--light-color);
+  background: var(--header-color);
+  color: var(--text-primary);
   padding: 3rem 0 1rem;
   margin-top: auto;
+  border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 2rem;
+  gap: 3rem;
   margin-bottom: 2rem;
 }
 
 .footer-section h4 {
-  color: var(--light-color);
-  margin-bottom: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
   font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
+  color: var(--logo-color);
+  opacity: 0.9;
 }
 
 .footer-description {
-  color: var(--gray-dark);
+  color: var(--text-secondary);
   line-height: 1.6;
+  font-size: 1rem;
 }
 
 .footer-links {
@@ -38,44 +40,26 @@
 }
 
 .footer-links li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
 .footer-links a {
-  color: var(--gray-dark);
+  color: var(--text-secondary);
   text-decoration: none;
   transition: var(--transition);
 }
 
 .footer-links a:hover {
-  color: var(--light-color);
-}
-
-.social-links {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.social-link {
-  color: var(--gray-dark);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--gray-dark);
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-}
-
-.social-link:hover {
-  color: var(--light-color);
-  border-color: var(--light-color);
+  color: var(--text-primary);
 }
 
 .footer-bottom {
-  border-top: 1px solid var(--gray-dark);
-  padding-top: 1.5rem;
+  padding-top: 2rem;
   text-align: center;
-  color: var(--gray-dark);
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
 }
 
 /* Адаптивность */
@@ -100,9 +84,5 @@
 @media (max-width: 390px) {
   .footer-content {
     gap: 1.5rem;
-  }
-  
-  .social-links {
-    flex-direction: column;
   }
 }

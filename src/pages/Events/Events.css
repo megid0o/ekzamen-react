@@ -1,7 +1,7 @@
 .events-page {
   padding: 100px 0 4rem;
   min-height: 100vh;
-  background: var(--gray-light);
+  background: var(--background-color);
 }
 
 .page-header {
@@ -13,12 +13,12 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--text-dark);
+  color: var(--text-primary);
 }
 
 .page-header p {
   font-size: 1.2rem;
-  color: var(--text-light);
+  color: var(--text-secondary);
 }
 
 .events-stats {
@@ -27,12 +27,11 @@
   align-items: center;
   margin-bottom: 2rem;
   padding: 1rem 0;
-  border-bottom: 1px solid var(--gray-medium);
 }
 
 .events-stats span {
   font-weight: 600;
-  color: var(--text-dark);
+  color: var(--text-primary);
 }
 
 .events-grid {
@@ -44,25 +43,20 @@
 .no-events {
   text-align: center;
   padding: 4rem 2rem;
-  background: var(--light-color);
+  background: var(--card-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
-}
-
-.no-events-icon {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.5;
+  border: 1px solid var(--border-color);
 }
 
 .no-events h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--text-dark);
+  color: var(--text-primary);
 }
 
 .no-events p {
-  color: var(--text-light);
+  color: var(--text-secondary);
   margin-bottom: 2rem;
 }
 

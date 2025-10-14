@@ -19,7 +19,6 @@ const Events = () => {
     resetFilters
   } = useEventsStore()
 
-  // useEffect для загрузки данных
   useEffect(() => {
     if (events.length === 0) {
       fetchEvents()
@@ -77,7 +76,6 @@ const Events = () => {
         
         {displayedEvents.length === 0 && !loading && (
           <div className="no-events">
-            <div className="no-events-icon">🔍</div>
             <h3>Мероприятия не найдены</h3>
             <p>Попробуйте изменить параметры поиска или сбросить фильтры</p>
             <button 

@@ -9,17 +9,15 @@ const Home = () => {
   const { events, fetchEvents, loading } = useEventsStore()
   const [featuredEvents, setFeaturedEvents] = useState([])
 
-  // useEffect для загрузки данных
   useEffect(() => {
     if (events.length === 0) {
       fetchEvents()
     }
   }, [events.length, fetchEvents])
 
-  // useEffect для выбора featured events
   useEffect(() => {
     if (events.length > 0) {
-      setFeaturedEvents(events.slice(0, 3))
+      setFeaturedEvents(events.slice(0, 6))
     }
   }, [events])
 
@@ -31,8 +29,9 @@ const Home = () => {
           <div className="hero-content">
             <div className="hero-text">
               <h1 className="hero-title">
-                Найдите свои
-                <span className="gradient-text"> идеальные мероприятия</span>
+                Найдите любое 
+                <span className="gradient-text"> событие</span>
+                
               </h1>
               <p className="hero-description">
                 Откройте для себя лучшие концерты, конференции, выставки и спортивные события. 
@@ -40,28 +39,22 @@ const Home = () => {
               </p>
               <div className="hero-actions">
                 <Link to="/events" className="btn btn-primary">
-                  Смотреть мероприятия
+                  События
                 </Link>
                 <Link to="/about" className="btn btn-secondary">
                   О нас
                 </Link>
               </div>
             </div>
-            <div className="hero-visual">
-              <div className="floating-cards">
-                <div className="card floating-card-1">Концерты</div>
-                <div className="card floating-card-2">Конференции</div>
-                <div className="card floating-card-3">Выставки</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
+      {/* Featured Events Section */}
       <section className="featured-events">
         <div className="container">
           <div className="section-header">
-            <h2>Популярные мероприятия</h2>
+            <h2>Актуальные события</h2>
             <p>Самые ожидаемые события этого месяца</p>
           </div>
 
@@ -83,10 +76,11 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Features Section */}
       <section className="features">
         <div className="container">
           <div className="section-header">
-            <h2>Почему выбирают EventHub?</h2>
+            <h2>Почему выбирают Tikkets?</h2>
           </div>
           <div className="features-grid">
             <div className="feature-card">

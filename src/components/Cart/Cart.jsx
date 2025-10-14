@@ -16,7 +16,7 @@ const Cart = ({ isOpen, onClose }) => {
     
     const total = getTotalPrice()
     const itemsCount = getTotalItems()
-    alert(`🎉 Поздравляем с покупкой! Вы приобрели ${itemsCount} билет(ов) на общую сумму ${total} ₸`)
+    alert(`Поздравляем с покупкой! Вы приобрели ${itemsCount} билет(ов) на общую сумму ${total} ₸`)
     clearCart()
     onClose()
   }
@@ -34,7 +34,6 @@ const Cart = ({ isOpen, onClose }) => {
         <div className="cart-content">
           {cartItems.length === 0 ? (
             <div className="empty-cart">
-              <div className="empty-cart-icon">🛒</div>
               <p>Корзина пуста</p>
               <span>Добавьте билеты на мероприятия</span>
             </div>
@@ -74,7 +73,7 @@ const Cart = ({ isOpen, onClose }) => {
                         className="remove-btn"
                         title="Удалить из корзины"
                       >
-                        🗑️
+                        Удалить
                       </button>
                     </div>
                   </div>
