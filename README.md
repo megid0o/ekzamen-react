@@ -1,16 +1,199 @@
-# React + Vite
+Tikkets - Платформа для покупки билетов на мероприятия
+Описание проекта
+Tikkets - это современное веб-приложение для поиска и покупки билетов на мероприятия по всему миру. Платформа предоставляет пользователям доступ к обширной базе мероприятий, включая концерты, конференции, спортивные события и выставки, с возможностью удобного бронирования и управления заказами.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Технический стек
+Frontend: React 18.2.0
 
-Currently, two official plugins are available:
+State Management: Zustand 4.4.0
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Routing: React Router DOM 6.0
 
-## React Compiler
+API: SeatGeek Events API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Styling: CSS3 с кастомными свойствами
 
-## Expanding the ESLint configuration
+Font: Inter Google Font
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Build Tool: Vite
+
+Ключевые возможности
+Функциональные требования
+Просмотр каталога мероприятий с реальными данными
+
+Поиск и фильтрация событий по типам и ключевым словам
+
+Система корзины с добавлением/удалением билетов
+
+Детальные страницы мероприятий с полной информацией
+
+Система пользовательской авторизации
+
+Добавление новых мероприятий организаторами
+
+Адаптивный дизайн для всех устройств
+
+Технические особенности
+Централизованное управление состоянием через Zustand
+
+Persistence данных в localStorage
+
+Оптимизированная производительность с React 18
+
+Современный дизайн в стиле SpaceX
+
+TypeScript-совместимая архитектура
+
+Архитектура проекта
+Структура каталогов
+src/
+├── components/          # Переиспользуемые UI компоненты
+│   ├── Header/         # Навигация и авторизация
+│   ├── EventCard/      # Карточка мероприятия
+│   ├── Cart/           # Компонент корзины
+│   ├── SearchBar/      # Поиск и фильтрация
+│   ├── Login/          # Форма входа
+│   └── Register/       # Форма регистрации
+├── pages/              # Страницы приложения
+│   ├── Home/           # Главная страница
+│   ├── Events/         # Каталог мероприятий
+│   ├── EventDetails/   # Детали мероприятия
+│   ├── AddEvent/       # Добавление мероприятия
+│   └── About/          # Информация о компании
+├── store/              # Управление состоянием
+│   ├── useEventsStore.js   # Состояние мероприятий
+│   ├── useCartStore.js     # Состояние корзины
+│   └── useAuthStore.js     # Состояние авторизации
+├── api/                # Внешние API интеграции
+│   └── seatGeekApi.js      # Клиент SeatGeek API
+└── styles/             # Глобальные стили
+Управление состоянием
+Проект использует Zustand для централизованного управления состоянием:
+
+Events Store (useEventsStore.js)
+
+Хранение списка мероприятий
+
+Управление состоянием загрузки и ошибок
+
+Поиск и фильтрация событий
+
+CRUD операции с мероприятиями
+
+Cart Store (useCartStore.js)
+
+Управление элементами корзины
+
+Расчет общей стоимости
+
+Persistence данных корзины
+
+Валидация доступности билетов
+
+Auth Store (useAuthStore.js)
+
+Управление состоянием аутентификации
+
+Хранение данных пользователя
+
+Авторизация и регистрация
+
+Защита маршрутов
+
+Установка и запуск
+Предварительные требования
+Node.js версии 16.0 или выше
+
+npm или yarn пакетный менеджер
+
+Установка зависимостей
+bash
+npm install
+Запуск в режиме разработки
+bash
+npm run dev
+Приложение будет доступно по адресу: http://localhost:5173
+
+Сборка для production
+bash
+npm run build
+Просмотр собранной версии
+bash
+npm run preview
+API интеграция
+Проект интегрирован с SeatGeek API для получения актуальных данных о мероприятиях:
+
+Базовый URL: https://api.seatgeek.com/2/
+
+Аутентификация: Client ID
+
+Endpoints:
+
+/events - получение списка мероприятий
+
+/events/{id} - детальная информация о мероприятии
+
+Поиск по ключевым словам
+
+Особенности реализации
+React хуки
+useState: Локальное состояние компонентов (формы, UI состояние)
+
+useEffect: Побочные эффекты (API запросы, подписки на события)
+
+Кастомные хуки: Логика управления состоянием через Zustand
+
+Производительность
+Оптимизированные перерендеры через Zustand
+
+Ленивая загрузка компонентов
+
+Кэширование API запросов
+
+Эффективная работа с большими списками
+
+Безопасность
+Валидация форм на клиенте
+
+Защита персистентных данных
+
+Обработка ошибок API
+
+Безопасное хранение чувствительной информации
+
+Деплоймент
+Проект готов к деплойменту на любую статическую хостинговую платформу:
+
+Vercel
+
+Netlify
+
+GitHub Pages
+
+Firebase Hosting
+
+Для деплоймента выполните сборку проекта и загрузите содержимое папки dist на хостинг.
+
+Скрипты разработки
+npm run dev - запуск development сервера
+
+npm run build - сборка production версии
+
+npm run preview - предпросмотр собранной версии
+
+npm run lint - проверка кода (если настроено)
+
+Браузерная поддержка
+Chrome 90+
+
+Firefox 88+
+
+Safari 14+
+
+Edge 90+
+
+Лицензия
+MIT License
+
+Контакты
+Для вопросов и предложений по проекту обращайтесь по электронной почте: support@tikkets.kz
