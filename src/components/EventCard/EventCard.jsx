@@ -1,32 +1,32 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useCartStore } from '../../store/useCartStore'
-import EventActions from '../EventActions/EventActions'
-import './EventCard.css'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCartStore } from '../../store/useCartStore';
+import EventActions from '../EventActions/EventActions';
+import './EventCard.css';
 
 const EventCard = ({ event, onEventClick, showActions = false }) => {
-  const [imageError, setImageError] = useState(false)
-  const navigate = useNavigate()
-  const { addToCart, isInCart } = useCartStore()
+  const [imageError, setImageError] = useState(false);
+  const navigate = useNavigate();
+  const { addToCart, isInCart } = useCartStore();
 
-  const inCart = isInCart(event.id)
+  const inCart = isInCart(event.id);
 
   const handleImageError = () => {
-    setImageError(true)
-  }
+    setImageError(true);
+  };
 
   const handleCardClick = () => {
     if (onEventClick) {
-      onEventClick(event)
+      onEventClick(event);
     } else {
-      navigate(`/event/${event.id}`)
+      navigate(`/event/${event.id}`);
     }
-  }
+  };
 
   const handleAddToCart = (e) => {
-    e.stopPropagation()
-    addToCart(event, 1)
-  }
+    e.stopPropagation();
+    addToCart(event, 1);
+  };
 
   const getDefaultImage = (type) => {
     const colors = {
@@ -36,31 +36,31 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
       exhibition: '8B5CF6',
       sport: 'EF4444',
       theater: '06B6D4'
-    }
-    const color = colors[type] || '6B7280'
-    return `https://via.placeholder.com/400x250/${color}/FFFFFF?text=${encodeURIComponent(event.title)}`
-  }
+    };
+    const color = colors[type] || '6B7280';
+    return `https://via.placeholder.com/400x250/${color}/FFFFFF?text=${encodeURIComponent(event.title)}`;
+  };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return date.toLocaleDateString('ru-RU', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
-    })
-  }
+    });
+  };
 
   const getTypeLabel = (type) => {
     const types = {
-      concert: 'Концерт',
-      conference: 'Конференция',
-      fair: 'Ярмарка',
-      exhibition: 'Выставка',
-      sport: 'Спорт',
-      theater: 'Театр'
-    }
-    return types[type] || type
-  }
+      concert: 'КОНЦЕРТ',
+      conference: 'КОНФЕРЕНЦИЯ',
+      fair: 'ЯРМАРКА',
+      exhibition: 'ВЫСТАВКА',
+      sport: 'СПОРТ',
+      theater: 'ТЕАТР'
+    };
+    return types[type] || type;
+  };
 
   return (
     <div className="event-card card fade-in">
@@ -76,7 +76,7 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
             onClick={handleAddToCart}
             title="Добавить в корзину"
           >
-            {inCart ? 'В корзине' : 'В корзину'}
+            {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
           </button>
           <span className="event-type-badge">{getTypeLabel(event.type)}</span>
         </div>
@@ -99,14 +99,14 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
 
         <div className="event-footer">
           <div className="event-price">
-            <span className="price-amount">{event.price} ₸</span>
-            <span className="price-label">за билет</span>
+            <span className="price-amount">{event.price.toLocaleString()} ₸</span>
+            <span className="price-label">ЗА БИЛЕТ</span>
           </div>
           <button 
             className="btn btn-primary btn-sm"
             onClick={handleAddToCart}
           >
-            {inCart ? 'Добавлено' : 'В корзину'}
+            {inCart ? 'ДОБАВЛЕНО' : 'В КОРЗИНУ'}
           </button>
         </div>
       </div>
@@ -115,7 +115,7 @@ const EventCard = ({ event, onEventClick, showActions = false }) => {
         <EventActions event={event} />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default EventCard
+export default EventCard;

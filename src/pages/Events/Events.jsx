@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useEventsStore } from '../../store/useEventsStore'
 import EventCard from '../../components/EventCard/EventCard'
 import SearchBar from '../../components/SearchBar/SearchBar'
@@ -16,8 +16,11 @@ const Events = () => {
     setSearchTerm,
     setFilterType,
     getFilteredEvents,
-    resetFilters
+    resetFilters,
+    error
   } = useEventsStore()
+
+  const [displayedEvents, setDisplayedEvents] = useState([])
 
   useEffect(() => {
     if (events.length === 0) {
@@ -25,7 +28,14 @@ const Events = () => {
     }
   }, [events.length, fetchEvents])
 
-  const displayedEvents = filteredEvents || getFilteredEvents?.() || events
+  useEffect(() => {
+    const filtered = filteredEvents || getFilteredEvents?.() || events
+    setDisplayedEvents(filtered)
+  }, [events, filteredEvents, getFilteredEvents])
+
+  const handleRetry = () => {
+    fetchEvents(true)
+  }
 
   if (loading && events.length === 0) {
     return (
@@ -41,9 +51,18 @@ const Events = () => {
     <div className="events-page">
       <div className="container">
         <div className="page-header">
-          <h1>Все мероприятия</h1>
-          <p>Найдите идеальное мероприятие для себя</p>
+          <h1>ВСЕ МЕРОПРИЯТИЯ</h1>
+          <p>Откройте для себя уникальные события</p>
         </div>
+
+        {error && (
+          <div className="api-error">
+            <p>{error}</p>
+            <button onClick={handleRetry} className="btn btn-primary">
+              Попробовать снова
+            </button>
+          </div>
+        )}
 
         <SearchBar
           searchTerm={searchTerm}
@@ -74,7 +93,7 @@ const Events = () => {
           ))}
         </div>
         
-        {displayedEvents.length === 0 && !loading && (
+        {displayedEvents.length === 0 && !loading && !error && (
           <div className="no-events">
             <h3>Мероприятия не найдены</h3>
             <p>Попробуйте изменить параметры поиска или сбросить фильтры</p>

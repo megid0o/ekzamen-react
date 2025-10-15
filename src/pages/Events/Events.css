@@ -1,5 +1,5 @@
 .events-page {
-  padding: 100px 0 4rem;
+  padding: 120px 0 4rem;
   min-height: 100vh;
   background: var(--background-color);
 }
@@ -14,11 +14,30 @@
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .page-header p {
   font-size: 1.2rem;
   color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.api-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--accent-color);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.api-error p {
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .events-stats {
@@ -27,11 +46,14 @@
   align-items: center;
   margin-bottom: 2rem;
   padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .events-stats span {
   font-weight: 600;
   color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .events-grid {
@@ -53,6 +75,8 @@
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .no-events p {
@@ -70,7 +94,7 @@
 
 @media (max-width: 768px) {
   .events-page {
-    padding: 90px 0 3rem;
+    padding: 100px 0 3rem;
   }
   
   .page-header h1 {
@@ -90,7 +114,7 @@
 
 @media (max-width: 390px) {
   .events-page {
-    padding: 80px 0 2rem;
+    padding: 90px 0 2rem;
   }
   
   .page-header h1 {

@@ -1,0 +1,223 @@
+/* src/components/Login/Login.css */
+.auth-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.auth-content {
+  background: var(--card-color);
+  border-radius: var(--border-radius);
+  width: 100%;
+  max-width: 450px;
+  animation: slideUp 0.3s ease;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-hover);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.auth-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.auth-form {
+  padding: 2rem;
+}
+
+.auth-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--accent-color);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  font-weight: 500;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background-color);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Серая кнопка */
+.btn-gray {
+  background: #6B7280;
+  color: var(--text-primary);
+  border: none;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.btn-gray:hover:not(:disabled) {
+  background: #4B5563;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-gray:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-footer {
+  padding: 1rem 2rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+}
+
+.auth-footer p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.auth-switch {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+.auth-switch:hover {
+  color: var(--primary-hover);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .auth-content {
+    margin: 1rem;
+  }
+  
+  .auth-header,
+  .auth-form {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .auth-header,
+  .auth-form {
+    padding: 1.25rem;
+  }
+  
+  .auth-header h2 {
+    font-size: 1.3rem;
+  }
+}
+
+
+.btn-gray {
+  background: #374151; /* Темно-серый */
+  color: var(--text-primary); /* Белый текст */
+  border: none;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.btn-gray:hover:not(:disabled) {
+  background: #4B5563; /* Темнее при наведении */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-gray:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
